@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>期末复习编程题集</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .problem {
+            margin-bottom: 50px;
+        }
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+        h3 {
+            color: #2c3e50;
+            margin: 15px 0;
+            font-size: 18px;
+        }
+        p, ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 20px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        code {
+            font-family: "Consolas", monospace;
+            font-size: 14px;
+            color: #2d3748;
+            white-space: pre;
+        }
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: 15px 0 20px 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>期末复习编程题集</h1>
+
+        <!-- 第一题：接口相关编程题 -->
+        <section class="problem">
+            <h2>题目一：Computer接口与NoteBookComputer子接口实现</h2>
+            
+            <h3>题目要求</h3>
+            <ul>
+                <li>（1）Computer接口中有抽象方法work（），有参数的默认方法getBrand（String brand），默认方法输出“该计算机品牌为参数（brand）”。</li>
+                <li>（2）NoteBookComputer接口中有抽象方法BatteryLife（）。</li>
+                <li>（3）创建NoteBookComputer接口的实现类huawei类，重写接口中的方法：work（）输出“移动终端”，BatteryLife（）输出“电池充满电后才能进行移动办公”。</li>
+                <li>（4）创建huawei类实例对象，调用work（）、BatteryLife（）和getBrand（）方法（getBrand输出“该计算机品牌为华为”）。</li>
+            </ul>
+
+            <h3>分析要点</h3>
+            <ul>
+                <li>接口定义：Computer接口包含抽象方法work()和默认方法getBrand()；NoteBookComputer接口继承Computer并添加BatteryLife()。</li>
+                <li>默认方法：用default关键字定义，有方法体，实现类可直接使用无需重写。</li>
+                <li>实现类：用implements实现接口，必须重写所有抽象方法（work()和BatteryLife()）。</li>
+            </ul>
+
+            <h3>代码实现</h3>
+            <div class="code-block">
+                <code>// 1. Computer接口
+interface Computer {
+    void work();  // 抽象方法
+    
+    default void getBrand(String brand) {  // 默认方法
+        System.out.println("该计算机品牌为" + brand);
+    }
+}
+
+// 2. NoteBookComputer子接口
+interface NoteBookComputer extends Computer {
+    void BatteryLife();  // 新增抽象方法
+}
+
+// 3. huawei实现类
+class huawei implements NoteBookComputer {
+    @Override
+    public void work() {
+        System.out.println("移动终端");
+    }
+    
+    @Override
+    public void BatteryLife() {
+        System.out.println("电池充满电后才能进行移动办公");
+    }
+}
+
+// 4. 测试类
+public class Test20 {
+    public static void main(String[] args) {
+        huawei hw = new huawei();  // 创建实例
+        
+        hw.work();                 // 调用work方法
+        hw.BatteryLife();          // 调用BatteryLife方法
+        hw.getBrand("华为");        // 调用getBrand方法
+    }
+}</code>
+            </div>
+        </section>
+
+        <!-- 第二题：ArrayList集合操作编程题 -->
+        <section class="problem">
+            <h2>题目二：ArrayList集合学生信息操作</h2>
+            
+            <h3>题目要求</h3>
+            <ul>
+                <li>（1）创建Student类，包含学号Id、姓名name和性别sex三个属性并封装。</li>
+                <li>（2）创建无参数和有参数构造方法，用于对象初始化。</li>
+                <li>（3）创建StudentList类，通过有参构造创建三个学生对象（数据如下表）。</li>
+                <li>（4）创建ArrayList集合载入学生信息，输出集合中学生信息条数。</li>
+                <li>（5）用迭代器Iterator遍历集合，删除“杨敏”同学信息并输出其余学生数据。</li>
+            </ul>
+
+            <h3>学生数据</h3>
+            <table>
+                <tr>
+                    <<th>学号</</th>
+                    <<th>姓名</</th>
+                    <<th>性别</</th>
+                </tr>
+                <tr>
+                    <td>21001</td>
+                    <td>王宏</td>
+                    <td>男</td>
+                </tr>
+                <tr>
+                    <td>21002</td>
+                    <td>杨敏</td>
+                    <td>女</td>
+                </tr>
+                <tr>
+                    <td>21003</td>
+                    <td>高思</td>
+                    <td>女</td>
+                </tr>
+            </table>
+
+            <h3>分析要点</h3>
+            <ul>
+                <li>Student类：私有属性+getter方法，提供无参和有参构造。</li>
+                <li>ArrayList操作：指定泛型为Student，用add()添加元素，size()获取数量。</li>
+                <li>迭代器删除：必须使用迭代器的remove()方法，避免ConcurrentModificationException异常。</li>
+            </ul>
+
+            <h3>代码实现</h3>
+            <div class="code-block">
+                <code>import java.util.ArrayList;
+import java.util.Iterator;
+
+// 1. Student类
+class Student {
+    private String Id;
+    private String name;
+    private String sex;
+    
+    // 2. 构造方法
+    public Student() {}  // 无参构造
+    
+    public Student(String Id, String name, String sex) {  // 有参构造
+        this.Id = Id;
+        this.name = name;
+        this.sex = sex;
+    }
+    
+    // getter方法（遍历输出需要）
+    public String getId() { 
+        return Id; 
+    }
+    public String getName() { 
+        return name; 
+    }
+    public String getSex() { 
+        return sex; 
+    }
+    
+    @Override
+    public String toString() {
+        return "学号：" + Id + "，姓名：" + name + "，性别：" + sex;
+    }
+}
+
+// 3. StudentList类
+public class Test21 {
+    public static void main(String[] args) {
+        // 创建三个学生对象
+        Student s1 = new Student("21001", "王宏", "男");
+        Student s2 = new Student("21002", "杨敏", "女");
+        Student s3 = new Student("21003", "高思", "女");
+        
+        // 4. 创建ArrayList集合并载入学生信息
+        ArrayList<Student> list = new ArrayList<>();
+        list.add(s1);
+        list.add(s2);
+        list.add(s3);
+        
+        // 输出集合中学生信息数据的条数
+        System.out.println("学生信息条数：" + list.size());
+        
+        // 5. 使用迭代器遍历并删除"杨敏"
+        Iterator<Student> it = list.iterator();
+        while (it.hasNext()) {
+            Student student = it.next();
+            if ("杨敏".equals(student.getName())) {
+                it.remove();  // 安全删除当前元素
+                break;  // 删除后退出循环
+            }
+        }
+        
+        // 遍历输出剩余学生
+        System.out.println("删除杨敏后剩余学生：");
+        for (Student student : list) {
+            System.out.println(student);
+        }
+    }
+}</code>
+            </div>
+        </section>
+
+        <!-- 第三题：多线程编程题 -->
+        <section class="problem">
+            <h2>题目三：新能源汽车网上订购多线程程序</h2>
+            
+            <h3>题目要求</h3>
+            <ul>
+                <li>（1）创建Car类实现Runnable接口。</li>
+                <li>（2）重写run方法，输出“XX4S店正在签售第N台汽车订单”（1<=N<=20），用同步代码块和线程休眠（5000毫秒）模拟抢购，避免一车多卖。</li>
+                <li>（3）创建4个线程代表湖北、上海、河南、北京4个4S店，实现抢购功能。</li>
+            </ul>
+
+            <h3>分析要点</h3>
+            <ul>
+                <li>Runnable接口：Car类实现Runnable，重写run()定义线程执行逻辑。</li>
+                <li>线程同步：用synchronized同步代码块，锁对象为Car.class（所有线程共享）。</li>
+                <li>共享资源：carCount用static修饰，所有实例共享，售出后自减至0。</li>
+                <li>线程休眠：Thread.sleep(5000)模拟签售耗时，处理InterruptedException。</li>
+            </ul>
+
+            <h3>代码实现</h3>
+            <div class="code-block">
+                <code>class Car implements Runnable {
+    private static int carCount = 20;  // 剩余汽车数量，所有线程共享
+    private String storeName;          // 4S店名称
+    
+    public Car(String storeName) {
+        this.storeName = storeName;
+    }
+    
+    @Override
+    public void run() {
+        while (true) {
+            synchronized (Car.class) {  // 同步代码块，使用Car类作为锁
+                if (carCount <= 0) {
+                    break;  // 汽车已售完
+                }
+                
+                System.out.println(storeName + "4S店正在签售第" + 
+                                 (21 - carCount) + "汽车订单");
+                carCount--;  // 售出一台车
+                
+                try {
+                    Thread.sleep(5000);  // 线程休眠5000毫秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+public class Test22 {
+    public static void main(String[] args) {
+        // 创建4个线程
+        Thread t1 = new Thread(new Car("湖北"), "湖北4S店");
+        Thread t2 = new Thread(new Car("上海"), "上海4S店");
+        Thread t3 = new Thread(new Car("河南"), "河南4S店");
+        Thread t4 = new Thread(new Car("北京"), "北京4S店");
+        
+        // 启动线程
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+    }
+}</code>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
